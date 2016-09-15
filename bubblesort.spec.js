@@ -1,37 +1,27 @@
 describe('Bubble Sort', function(){
-	var compare = function(a, b) {
-		return a > b;
-	}
+
+  var compareObj;
+  beforeEach(function() {
+    compareObj = {
+      func: function(a, b) {
+        return a > b;
+      }
+    };
+    spyOn(compareObj, 'func').and.callThrough();
+  });
 
   it('handles an empty array', function(){
-    expect( bubbleSort([], compare) ).toEqual( [] );
+    console.log(compareObj.func)
+    expect( bubbleSort([], compareObj.func) ).toEqual( [] );
   });
 
   it('handles single item', function() {
-  	expect( bubbleSort(["a"], compare) ).toEqual( ["a"] );
+  	expect( bubbleSort(["a"], compareObj.func) ).toEqual( ["a"] );
   });
 
   it('handles multiple items', function() {
-  	expect( bubbleSort(["a", "d", "c", "b"], compare) ).toEqual( ["a", "b", "c", "d"] );
-  });
-
-
-
-});
-
-
-
-
-xdescribe('Bubble Sort', function(){
-  it('handles an empty array', function(){
-    expect( recursiveBubbleSort([]) ).toEqual( [] );
-  });
-
-  it('handles single item', function() {
-  	expect( recursiveBubbleSort(["a"]) ).toEqual( ["a"] );
-  });
-
-  it('handles multiple items', function() {
-  	expect( recursiveBubbleSort(["a", "d", "c", "b"]) ).toEqual( ["a", "b", "c", "d"] );
+  	expect( bubbleSort(["a", "d", "c", "b"], compareObj.func) ).toEqual( ["a", "b", "c", "d"] );
+    expect(compareObj.func).toHaveBeenCalledTimes(6);
   });
 });
+
